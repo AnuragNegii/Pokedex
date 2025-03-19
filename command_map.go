@@ -20,7 +20,7 @@ type Config struct{
     Previous string
 }
 
-func commandMap(config *Config, areaName string) error{
+func commandMap(config *Config, areaName string, caught []string) error{
     url := "https://pokeapi.co/api/v2/location-area/" 
     if config.Next != ""{
         url = config.Next
@@ -46,7 +46,7 @@ func commandMap(config *Config, areaName string) error{
     return nil
 }
 
-func commandMapb(config *Config, areaName string) error{
+func commandMapb(config *Config, areaName string, caught []string) error{
     if config.Previous == "" {
         fmt.Println("you are on first page.")
         return nil

@@ -14,7 +14,7 @@ type Pokemon struct{
     }`json:"pokemon_encounters"`
 }
 
-func commandExplore(config *Config, areaName string) error{
+func commandExplore(config *Config, areaName string, caught []string) error{
     fmt.Printf("Exploring %s\n", areaName)
     if areaName == ""{
         fmt.Printf("no area mentioned\n")
