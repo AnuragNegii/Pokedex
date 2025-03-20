@@ -39,6 +39,7 @@ func commandCatch(config *Config, name string, caught *[]Pokemon) error{
     gotPokemon := CatchPokemon(pokemonType.Base_experience) 
     if gotPokemon{
         fmt.Printf("%s caught!\n", pokemonType.Name)
+        fmt.Println("You may now inspect it with the inspect command.")
         *caught = append(*caught, Pokemon{Name:pokemonType.Name}) 
         return nil
     }
