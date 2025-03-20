@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-type Pokemon struct{
+type PokemonA struct{
     PokemonEncounters []struct{
         Pokemon struct{
             Name string `json:"name"`
@@ -14,7 +14,7 @@ type Pokemon struct{
     }`json:"pokemon_encounters"`
 }
 
-func commandExplore(config *Config, areaName string, caught []string) error{
+func commandExplore(config *Config, areaName string, caught *[]Pokemon) error{
     fmt.Printf("Exploring %s\n", areaName)
     if areaName == ""{
         fmt.Printf("no area mentioned\n")
@@ -26,7 +26,7 @@ func commandExplore(config *Config, areaName string, caught []string) error{
     if err != nil{
         return err
     }
-    pokemon := Pokemon{}
+    pokemon := PokemonA{}
     err = json.Unmarshal(body, &pokemon)
     if err != nil{
         return err

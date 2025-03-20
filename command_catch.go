@@ -6,7 +6,6 @@ import (
 	"io"
 	"math/rand"
 	"net/http"
-	"slices"
 )
 
 
@@ -15,7 +14,7 @@ type PokemonType struct{
     Base_experience int `json:"base_experience"`
 }
 
-func commandCatch(config *Config, name string, caught []string) error{
+func commandCatch(config *Config, name string, caught *[]Pokemon) error{
     url := "https://pokeapi.co/api/v2/pokemon/" + name
     if name == ""{
         fmt.Println("No Pokemon Entered")
@@ -40,15 +39,10 @@ func commandCatch(config *Config, name string, caught []string) error{
     gotPokemon := CatchPokemon(pokemonType.Base_experience) 
     if gotPokemon{
         fmt.Printf("%s caught!\n", pokemonType.Name)
-    }else{
-        fmt.Printf("%s escaped!\n", pokemonType.Name)
-    }
-    
-    if slices.Contains(caught, pokemonType.Name) {
+        *caught = append(*caught, Pokemon{Name:pokemonType.Name}) 
         return nil
     }
-    
-    caught = append(caught, pokemonType.Name)
+    fmt.Printf("%s escaped!\n", pokemonType.Name)
     return nil
 }
 

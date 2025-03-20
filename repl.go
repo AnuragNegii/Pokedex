@@ -7,8 +7,12 @@ import (
 	"strings"
 )
 
+type Pokemon struct{
+    Name string
+}
+
 func startRepl(config *Config){
-    usersPokedex :=  []string{}
+    pokemonlist :=  []Pokemon{}
     scanner := bufio.NewScanner(os.Stdin) 
     areaName := ""
     for{
@@ -25,7 +29,7 @@ func startRepl(config *Config){
         }
         command, exists := getCommands()[commandName]
         if exists{
-            err := command.callback(config, areaName, usersPokedex)
+            err := command.callback(config, areaName, &pokemonlist)
             if err != nil {
                 fmt.Println("Error:", err)
             }           
@@ -49,7 +53,7 @@ func cleanInput(text string) []string{
 type cliCommand struct{
     name string
     description string
-    callback func(*Config, string, []string) error
+    callback func(*Config, string, *[]Pokemon) error
 }
 
 func getCommands() map[string]cliCommand{
@@ -83,6 +87,11 @@ func getCommands() map[string]cliCommand{
             name:"catch",
             description: "Throw a ball to catch pokemon",
             callback: commandCatch,
+        },
+        "inspect":{
+            name: "inspect",
+            description: "Inspect features of caught pokemon",
+            callback: commandInspect,
         },
     }
 }
